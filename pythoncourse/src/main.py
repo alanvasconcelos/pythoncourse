@@ -11,6 +11,7 @@ import sys
 import urllib.request as request
 import zipfile
 import utils as dw
+import entities
 import os
 from src.utils import validarTelefone
 from src.NumeroTelefoneInvalido import NumeroTelefoneInvalido
@@ -30,7 +31,8 @@ def main():
     if len(sys.argv) > 2:
         OUTPUT_PATH = sys.argv[2]
     if len(sys.argv) > 3:
-        EXTRACTED_PATH = sys.argv[3]
+        EXTRACTION_PATH = sys.argv[3]
+    
     if (os.path.exists(OUTPUT_PATH) == 0):
         response = request.urlopen(RESOURCE_URL)
         out_file = io.FileIO(OUTPUT_PATH, mode="w")
@@ -40,6 +42,7 @@ def main():
             dw.download_length(response, out_file, length)
         else:
             dw.download(response, out_file)
+
         response.close()
         out_file.close()
     zfile = zipfile.ZipFile(OUTPUT_PATH)
@@ -58,7 +61,7 @@ def main():
     # else:
     #     print("Numero esta no formato correto")
     #===========================================================================
-        
+       
     print("Finished")
 
 if __name__ == "__main__":
